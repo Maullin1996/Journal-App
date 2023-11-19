@@ -1,6 +1,6 @@
 // los thunks solo son para tareas asincronas.
 
-import { signInWithGoogle, registerUserWithEmailPassword } from '../../firebase/providers';
+import { signInWithGoogle, registerUserWithEmailPassword, loginWithEmailPassword, logoutFirebase } from '../../firebase/providers';
 import { checkingCredentials, login, logout } from './authSlice';
 
 export const checkingAuthentication = ( email, password ) => {
@@ -25,14 +25,41 @@ export const startCreatingUserWithEmailPassord = ({ email, password, displayName
 
         dispatch( checkingCredentials() );
 
-        const { ok, uid, photoURL, errorMessage } = await registerUserWithEmailPassword({
+        const result = await registerUserWithEmailPassword({
             email, 
             password, 
             displayName })
 
-        if( !ok ) return dispatch( logout( {errorMessage} ) )
+        if( !result.ok ) return dispatch( logout( result.errorMessage ) )
         
-        dispatch( login( {uid, displayName, email, photoURL} ) );
+        dispatch( login( result ) );
         //console.log(resp);
+    }
+}
+
+export const startLoginWithEmailPassword = ( { email, password } ) => {
+
+    return  async( dispatch ) => {
+        
+        dispatch( checkingCredentials() );
+
+
+        const resp = await loginWithEmailPassword({
+            email,
+            password,
+        });
+        if( !resp.ok )return dispatch( logout( resp ) );
+        dispatch( login( resp ));
+    }
+
+}
+
+export const startLogout = () => {
+    return async( dispatch ) => {
+
+        await logoutFirebase();
+
+        dispatch( logout({}) );
+
     }
 }

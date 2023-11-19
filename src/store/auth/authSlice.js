@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 export const authSlice = createSlice({
     name: 'auth',
     initialState: {
-        status: 'not-authenticated',
+        status: 'checking',
         uid: null,
         email: null,
         displayName: null,
@@ -28,7 +28,7 @@ export const authSlice = createSlice({
             state.email = null;
             state.displayName = null;
             state.photoURL = null;
-            state.errorMessage = payload.errorMessage;
+            state.errorMessage = payload?.errorMessage;
 
         },
         checkingCredentials: ( state ) => {
@@ -38,6 +38,7 @@ export const authSlice = createSlice({
     }
 });
 
+/*Si viene el payload entonces busca el errorMessage (payload?.errorMessage) */
 
 // Action creators are generated for each case reducer function
 export const { login, logout, checkingCredentials } = authSlice.actions;

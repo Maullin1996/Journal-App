@@ -9,11 +9,7 @@ export const SideBarItem = ({note}) => {
     const dispatch = useDispatch();
 
     const onClickSetNote = () => {
-        dispatch( setActiveNote( 
-            note.id, 
-            note.title,
-            note.date,
-            note.body) )
+        dispatch( setActiveNote({note}) )
     }
 
     // para que el texto no pase de una sola linea.

@@ -1,8 +1,15 @@
 import { SaveOutlined } from "@mui/icons-material";
 import { Button, Grid, TextField, Typography } from "@mui/material";
 import { ImageGallery } from "../components";
+import { useForm } from "../../hook/useForm";
+import { useSelector } from "react-redux";
 
 export const NoteView = () => {
+
+    const  { activeNote } = useSelector( state => state.journal);
+
+    const { onInputChange, formState } = useForm( activeNote )
+
     return (
         <Grid 
             container
@@ -35,6 +42,9 @@ export const NoteView = () => {
                         placeholder="Ingrese un título"
                         label="Título"
                         sx={{ border: 'none', mb: 1 }}
+                        name="title"
+                        value={ notes.title }
+                        onChange={ onInputChange }
                     />
                     <TextField
                         type="text"

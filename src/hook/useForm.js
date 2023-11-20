@@ -15,6 +15,13 @@ export const useForm = ( initialForm = {}, formValidations = {} ) => {
     
     }, [ formState ])
 
+    /*el useEffect para que actualice las notas */
+    useEffect(() => {
+        setFormState( initialForm )
+        
+    }, [initialForm])
+    
+
     /*Esta funcion solo se va a ejecutar si nuestro formState cambia */
     const isFormValid = useMemo( () => {
 

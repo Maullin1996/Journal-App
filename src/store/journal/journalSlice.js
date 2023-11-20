@@ -39,10 +39,14 @@ export const journalSlice = createSlice({
         },
 
         setSaving: (state) => {
+            state.isSaving = true;
+            // TODO: mensaje de error...
 
         },
 
-        updateNote: (state, action) => {
+        updatedNote: (state, action) => {
+            state.isSaving = false;
+            
 
         },
 
@@ -61,7 +65,7 @@ export const {
     setActiveNote,
     setNote,
     setSaving,
-    updateNote,
+    updatedNote,
     deleteNoteById} = journalSlice.actions;
 /*isSaving: true es una bandera booleana que me sertifique 
 si estoy guardando o no*/

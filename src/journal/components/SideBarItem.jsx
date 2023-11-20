@@ -4,20 +4,20 @@ import { TurnedInNot } from '@mui/icons-material'
 import { useDispatch } from 'react-redux'
 import { setActiveNote } from '../../store/journal'
 
-export const SideBarItem = ({note}) => {
+export const SideBarItem = ({title = '', body, id, data, imageUrls = []}) => {
 
     const dispatch = useDispatch();
 
     const onClickSetNote = () => {
-        dispatch( setActiveNote({note}) )
+        dispatch( setActiveNote({title, body, id, data, imageUrls}) )
     }
 
     // para que el texto no pase de una sola linea.
     const newTitle = useMemo( () => {
-        return note.title.length > 17
-        ? note.title.substring(0,17) + '...'
-        : note.title
-    }, [ note.title ] )
+        return title.length > 17
+        ? title.substring(0,17) + '...'
+        : title
+    }, [ title ] )
 
     return (
     <ListItem 
@@ -28,7 +28,7 @@ export const SideBarItem = ({note}) => {
             </ListItemIcon>
             <Grid container>
                 <ListItemText primary={ newTitle } />
-                <ListItemText secondary={ note.body } />
+                <ListItemText secondary={ body } />
             </Grid>
         </ListItemButton>
     </ListItem>

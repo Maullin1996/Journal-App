@@ -1,7 +1,8 @@
 import { collection, doc, setDoc } from 'firebase/firestore/lite';
 import { FirebaseDB } from '../../firebase/config';
-import { addNewEmptyNote, setActiveNote, savingNewNote, setNote, setSaving } from './journalSlice';
+import { addNewEmptyNote, setActiveNote, savingNewNote, setNote, setSaving, updatedNote } from './journalSlice';
 import { loadNotes } from '../../helper/loadNotes';
+import { fileUpload } from '../../helper';
 
 export const startNewNote = () => {
     return async( dispatch, getSate ) => {
@@ -66,5 +67,16 @@ export const startSaveNote =  () => {
         existian en el noteToFireStore entonces los campos que estaban antes
         se mantienen*/
 
+        dispatch( updatedNote( note ) );
+
     }
+}
+
+export const startUploadingFiles = ( files = [] ) => {
+    return async( dispatch ) => {
+        dispatch( setSaving() );
+
+        await fileUpload( files[0] )
+    }
+
 }

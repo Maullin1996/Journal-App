@@ -1,5 +1,7 @@
-import { Box, Toolbar } from "@mui/material";
-import { NavBar, SideBar } from "../components";
+import { Box, Toolbar } from '@mui/material';
+import { SideBar } from '../components/SideBar';
+import { NavBar } from '../components/NavBar';
+
 
 const drawerWidth = 250;
 export const JournalLayout = ({ children }) => {

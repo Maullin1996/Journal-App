@@ -1,12 +1,14 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { DeleteOutline, SaveOutlined, UploadOutlined } from '@mui/icons-material';
 import { Button, Grid, IconButton, TextField, Typography } from '@mui/material';
+import { DeleteOutline, SaveOutlined, UploadOutlined } from '@mui/icons-material';
 import Swal from 'sweetalert2';
-import 'sweetalert2/dist/sweetalert2.css';
-import { ImageGallery } from '../components';
+import 'sweetalert2/dist/sweetalert2.css'
 import { useForm } from '../../hook/useForm';
-import { setActiveNote, startDeletingNote, startSaveNote, startUploadingFiles } from '../../store/journal';
+import { setActiveNote } from '../../store/journal/journalSlice';
+import { startDeletingNote, startSaveNote, startUploadingFiles } from '../../store/journal/thunks';
+import { ImageGallery } from '../components/ImageGallery';
+
 
 
 

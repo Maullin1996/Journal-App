@@ -1,11 +1,14 @@
 import { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
-import { Alert, Button, Grid, Link, TextField, Typography } from '@mui/material';
 import { Google } from '@mui/icons-material';
+import { Alert, Button, Grid, Link, TextField, Typography } from '@mui/material';
+import { useForm } from '../../hook/useForm';
+import { startGoogleSignIn, startLoginWithEmailPassword } from '../../store/auth/thunks';
 import { AuthLayout } from '../layout/AuthLayout';
-import { useForm } from '../../hook';
-import { startGoogleSignIn, startLoginWithEmailPassword } from '../../store/auth';
+
+
+
 
 const formData = {
     email: '',

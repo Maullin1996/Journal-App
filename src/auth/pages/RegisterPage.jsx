@@ -2,9 +2,10 @@ import { useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
 import { Alert, Button, Grid, Link, TextField, Typography } from '@mui/material';
+import { useForm } from '../../hook/useForm';
+import { startCreatingUserWithEmailPassord } from '../../store/auth/thunks';
 import { AuthLayout } from '../layout/AuthLayout';
-import { useForm } from '../../hook';
-import { startCreatingUserWithEmailPassord } from '../../store/auth';
+
 
 
 const formData = {

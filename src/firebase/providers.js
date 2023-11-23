@@ -47,12 +47,12 @@ export const registerUserWithEmailPassword = async ({ email, password, displayNa
 
         return {
             ok: true,
-            uid, photoURL, displayName
+            uid, photoURL, displayName, email
         }
     }
 
     catch (error) {
-        //console.log(error);
+        console.log(error);
         return { ok: false, errorMessage: 'El usurio ya existe' }
     }
 }

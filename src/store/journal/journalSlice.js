@@ -67,8 +67,16 @@ export const journalSlice = createSlice({
 
         },
 
-        deleteNoteById: (state, action) => {
+        clearNotesLogout: (state) => {
+            state.isSaving = false;
+            state.messageSaved = '';
+            state.notes = [];
+            state.activeNote = null;
+        },
 
+        deleteNoteById: (state, action) => {
+            state.activeNote = null;
+            state.notes  = state.notes.filter( note => note.id !== action.payload );
         },
 
     }
@@ -84,6 +92,7 @@ export const {
     setSaving,
     updatedNote,
     setPhotosToActiveNote,
+    clearNotesLogout,
     deleteNoteById} = journalSlice.actions;
 /*isSaving: true es una bandera booleana que me sertifique 
 si estoy guardando o no*/

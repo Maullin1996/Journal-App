@@ -1,21 +1,21 @@
-import { collection, doc, setDoc } from 'firebase/firestore/lite';
+import { collection, deleteDoc, doc, setDoc } from 'firebase/firestore/lite';
 import { FirebaseDB } from '../../firebase/config';
-import { addNewEmptyNote, setActiveNote, savingNewNote, setNote, setSaving, updatedNote, setPhotosToActiveNote } from './journalSlice';
+import { addNewEmptyNote, setActiveNote, savingNewNote, setNote, setSaving, updatedNote, setPhotosToActiveNote, deleteNoteById } from './journalSlice';
 import { loadNotes } from '../../helper/loadNotes';
 import { fileUpload } from '../../helper';
 
 export const startNewNote = () => {
-    return async( dispatch, getSate ) => {
+    return async( dispatch, getState ) => {
 
-        dispatch( savingNewNote() );
+        // dispatch( savingNewNote() );
 
-        const { uid } = getSate().auth;
-        //uid
+        const { uid } = getState().auth;
+        // //uid
 
         const newNote = {
             title: '',
             body:'',
-            date: new Date().getTime(),
+            data: new Date().getTime(),
         }
         //Esto se hace para crear el path donde se va a guardar la nota
         const newDoc = doc( collection( FirebaseDB, `${ uid }/journal/notes` ) );
@@ -24,19 +24,18 @@ export const startNewNote = () => {
         newNote.id = newDoc.id;
 
         // dispatch
-        //dispatch newNote
         dispatch( addNewEmptyNote( newNote ) );
         //dispatch activeNote
         dispatch( setActiveNote( newNote ) );
-        //console.log({newDoc, setDocResp})
+        // //console.log({newDoc, setDocResp})
     }
 }
 
 export const startLoadingNotes = () => {
-    return async ( dispatch, getSate ) => {
+    return async ( dispatch, getState ) => {
 
 
-        const { uid } = getSate().auth;
+        const { uid } = getState().auth;
         if( !uid ) throw new Error('El UID del usuario no exite');
         
         const notes = await loadNotes( uid )
@@ -86,4 +85,17 @@ export const startUploadingFiles = ( files = [] ) => {
         dispatch( setPhotosToActiveNote( photosUrls ) );
     }
 
+}
+
+export const startDeletingNote = () => {
+    return async( dispatch, getState ) => {
+
+        const{ uid } = getState().auth;
+        const { activeNote: note } = getState().journal;
+
+        const docRef = doc( FirebaseDB, `${ uid }/journal/notes/${ note.id }`);
+        await deleteDoc( docRef );
+
+        dispatch( deleteNoteById( note.id ) );
+    }
 }

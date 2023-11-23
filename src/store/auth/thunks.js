@@ -1,9 +1,10 @@
 // los thunks solo son para tareas asincronas.
 
 import { signInWithGoogle, registerUserWithEmailPassword, loginWithEmailPassword, logoutFirebase } from '../../firebase/providers';
+import { clearNotesLogout } from '../journal';
 import { checkingCredentials, login, logout } from './authSlice';
 
-export const checkingAuthentication = ( email, password ) => {
+export const checkingAuthentication = ( ) => {
     return async( dispatch ) => {
         dispatch( checkingCredentials() );
     }
@@ -58,8 +59,8 @@ export const startLogout = () => {
     return async( dispatch ) => {
 
         await logoutFirebase();
-
-        dispatch( logout({}) );
+        dispatch( clearNotesLogout() );
+        dispatch( logout() );
 
     }
 }

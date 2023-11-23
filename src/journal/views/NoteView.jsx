@@ -16,11 +16,11 @@ export const NoteView = () => {
 
     const dispatch = useDispatch();
     const  { activeNote: note, messageSaved, isSaving } = useSelector( state => state.journal);
-    const { title, body, data, onInputChange, formState } = useForm( note )
+    const { title, body, data, onInputChange, formState } = useForm(note)
 
     const dateString = useMemo( () => {
         const newDate = new Date( data );
-        return newDate.toUTCString();
+        return newDate.toLocaleString();
     }, [data] );
 
     /*Ya que el input para la subida de archivos
@@ -47,7 +47,7 @@ export const NoteView = () => {
     }
 
     const onFileInputChange = ({ target }) => {
-        if( target.files === 0 ) return;
+        if( target.files.length === 0 ) return;
         console.log('subiendo archivos');
         dispatch( startUploadingFiles( target.files ) );
     }

@@ -17,6 +17,7 @@ export const startNewNote = () => {
             title: '',
             body:'',
             data: new Date().getTime(),
+            imageUrls: []
         }
         //Esto se hace para crear el path donde se va a guardar la nota
         const newDoc = doc( collection( FirebaseDB, `${ uid }/journal/notes` ) );

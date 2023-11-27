@@ -27,6 +27,7 @@ export const LoginPage = () => {
 
     const onSubmit = (event) => {
         event.preventDefault();
+        console.log({email, password})
         dispatch( startLoginWithEmailPassword({ email, password }) );
 
     }
@@ -41,8 +42,10 @@ export const LoginPage = () => {
     return (
 
         <AuthLayout tittle='Login'>
-            <form onSubmit={ onSubmit }
-            className="animate__animated animate__fadeIn animate__faster"
+            <form
+                aria-label='submit-form'
+                onSubmit={ onSubmit }
+                className="animate__animated animate__fadeIn animate__faster"
             >
                 <Grid container>
                     <Grid item xs={12} sx={{ mt: 2 }}>
@@ -64,6 +67,9 @@ export const LoginPage = () => {
                             placeholder="contraseña"
                             fullWidth
                             name='password'
+                            inputProps={{
+                                'data-testid': 'password'
+                            }}
                             value={ password }
                             onChange={ onInputChange }
                         />
